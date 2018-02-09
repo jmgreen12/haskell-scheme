@@ -9,6 +9,7 @@ data LispVal = Atom String
              | Number Integer
              | String String
              | Bool Bool
+             deriving (Show)
 
 symbol :: Parser Char
 symbol = oneOf "!#$%&|*+-/:<=>?@^_~"
@@ -16,10 +17,13 @@ symbol = oneOf "!#$%&|*+-/:<=>?@^_~"
 spaces :: Parser ()
 spaces = skipMany1 space
 
+escapedQuotes :: Parser Char
+escapedQuotes = liftM last $ string "\\\""
+                
 parseString :: Parser LispVal
 parseString = do
     char '"'
-    x <- many (noneOf "\"")
+    x <- many $ escapedQuotes <|> noneOf "\""
     char '"'
     return $ String x
 
