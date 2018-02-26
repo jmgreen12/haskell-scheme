@@ -14,3 +14,6 @@ spec = do
         
         it "parses a string with escaped quotes" $ do
             readExpr "\"abc\\\"d\"" `shouldBe` "Found value"
+
+        it "parses a string with escaped characters" $ do
+            readExpr "\"\\ttab\\nnewline\\rreturn\\\\slash\"" `shouldBe` "Found value"

@@ -20,10 +20,21 @@ spaces = skipMany1 space
 escapedQuotes :: Parser Char
 escapedQuotes = liftM last $ string "\\\""
                 
+escapedChar :: Parser Char
+escapedChar = do
+    char '\\'
+    x <- oneOf "\\\"trn"
+    return $ case x of
+        '\\' -> x
+        '\"' -> x
+        't' -> '\t'
+        'r' -> '\r'
+        'n' -> '\n'
+
 parseString :: Parser LispVal
 parseString = do
     char '"'
-    x <- many $ escapedQuotes <|> noneOf "\""
+    x <- many $ escapedChar <|> noneOf "\"\\"
     char '"'
     return $ String x
 
@@ -68,4 +79,4 @@ parseExpr = parseAtom
 readExpr :: String -> String
 readExpr input = case parse parseExpr "lisp" input of
     Left err -> "No match: " ++ show err
-    Right _ -> "Found value"
+    Right result -> "Found value " ++ show result
