@@ -10,10 +10,16 @@ spec :: Spec
 spec = do
     describe "SchemeParser.readExpr" $ do
         it "parses a string" $ do
-            readExpr "\"abcd\"" `shouldBe` "Found value"
+            (show . readExpr) "\"abcd\"" `shouldBe` "\"abcd\""
         
         it "parses a string with escaped quotes" $ do
-            readExpr "\"abc\\\"d\"" `shouldBe` "Found value"
+            (show . readExpr) "\"abc\\\"d\"" `shouldBe` "\"abc\"d\""
 
         it "parses a string with escaped characters" $ do
-            readExpr "\"\\ttab\\nnewline\\rreturn\\\\slash\"" `shouldBe` "Found value"
+            (show . readExpr) "\"\\ttab\\nnewline\\rreturn\\\\slash\"" `shouldBe` "\"\ttab\nnewline\rreturn\\slash\""
+        
+        it "parses a list" $ do
+            (show . readExpr) "(1 2 2)" `shouldBe` "(1 2 2)"
+
+        it "parses a quoted literal" $ do
+            (show . readExpr) "'(1 3 (\"this\" \"one\"))" `shouldBe` "(quote (1 3 (\"this\" \"one\")))"
