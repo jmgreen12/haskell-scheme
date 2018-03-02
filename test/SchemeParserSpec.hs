@@ -1,14 +1,14 @@
 module SchemeParserSpec (main, spec) where
 
 import Test.Hspec
-import SchemeParser (readExpr, eval)
+import SchemeParser (readExpr)
 
 main :: IO ()
 main = hspec spec
 
 spec :: Spec
 spec = do
-    describe "SchemeParser.readExpr" $ do
+    describe "readExpr" $ do
         it "parses a string" $ do
             (show . readExpr) "\"abcd\"" `shouldBe` "\"abcd\""
         
@@ -23,10 +23,3 @@ spec = do
 
         it "parses a quoted literal" $ do
             (show . readExpr) "'(1 3 (\"this\" \"one\"))" `shouldBe` "(quote (1 3 (\"this\" \"one\")))"
-
-    describe "SchemeParser.eval" $ do
-        it "evaluates addition" $ do
-            (show . eval . readExpr) "(+ 2 2)" `shouldBe` "4"
-        
-        it "evaluates nested addition and subtraction" $ do
-            (show . eval .readExpr) "(- (+ 4 6 3) 3 5 2)" `shouldBe` "3"

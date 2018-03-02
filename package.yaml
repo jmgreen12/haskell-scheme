@@ -1,0 +1,36 @@
+name: haskell-scheme
+version: '0.1.0.0'
+category: Web
+author: Author name here
+maintainer: example@example.com
+copyright: 2018 Author name here
+license: BSD3
+homepage: https://github.com/jmgreen12/haskell-scheme#readme
+extra-source-files:
+  - README.md
+dependencies:
+  - parsec
+library:
+  source-dirs: src
+  ghc-options: -Wall
+  exposed-modules:
+    - SchemeParser
+    - SchemeEval
+  dependencies:
+    - base >=4.7 && <5
+executables:
+  haskell-scheme:
+    main: Main.hs
+    source-dirs: src
+    dependencies:
+      - base >=4.7 && <5
+      - hspec
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options: -Wall
+    dependencies:
+      - base ==4.*
+      - haskell-scheme
+      - hspec ==2.*
