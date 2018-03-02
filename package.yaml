@@ -10,27 +10,19 @@ extra-source-files:
   - README.md
 dependencies:
   - parsec
+  - base >=4.7 && <5
+  - hspec
 library:
   source-dirs: src
   ghc-options: -Wall
-  exposed-modules:
-    - SchemeParser
-    - SchemeEval
-  dependencies:
-    - base >=4.7 && <5
 executables:
   haskell-scheme:
     main: Main.hs
     source-dirs: src
-    dependencies:
-      - base >=4.7 && <5
-      - hspec
 tests:
   spec:
     main: Spec.hs
     source-dirs: test
     ghc-options: -Wall
     dependencies:
-      - base ==4.*
       - haskell-scheme
-      - hspec ==2.*
