@@ -11,6 +11,7 @@ extra-source-files:
 dependencies:
   - parsec
   - base >=4.7 && <5
+  - mtl
   - hspec
 library:
   source-dirs: src
