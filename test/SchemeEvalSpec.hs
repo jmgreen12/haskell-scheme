@@ -17,3 +17,6 @@ spec = do
         
         it "evaluates nested addition and subtraction" $ do
             (show $ extractValue $ (eval <=< readExpr) "(- (+ 4 6 3) 3 5 2)") `shouldBe` "3"
+        
+        it "evaluates string=?" $ do
+            (show $ extractValue $ (eval <=< readExpr) "(string=? \"2\" \"2\")") `shouldBe` "#t"
